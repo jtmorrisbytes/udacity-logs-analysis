@@ -1,0 +1,10 @@
+author schema
+ Column |  Type   |                      Modifiers                       
+--------+---------+------------------------------------------------------
+ name   | text    | not null
+ bio    | text    | 
+ id     | integer | not null default nextval('authors_id_seq'::regclass)
+Indexes:
+    "authors_pkey" PRIMARY KEY, btree (id)
+Referenced by:
+    TABLE "articles" CONSTRAINT "articles_author_fkey" FOREIGN KEY (author) REFERENCES authors(id)

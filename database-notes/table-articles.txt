@@ -1,0 +1,14 @@
+ Column |           Type           |                       Modifiers                       
+--------+--------------------------+-------------------------------------------------------
+ author | integer                  | not null REFERENCES authors.id
+ title  | text                     | not null
+ slug   | text                     | not null UNIQUE
+ lead   | text                     | 
+ body   | text                     | 
+ time   | timestamp with time zone | default now()
+ id     | integer                  | not null PRIMARY KEY default nextval('articles_id_seq'::regclass)
+Indexes:
+    "articles_pkey" PRIMARY KEY, btree (id)
+    "articles_slug_key" UNIQUE CONSTRAINT, btree (slug)
+Foreign-key constraints:
+    "articles_author_fkey" FOREIGN KEY (author) REFERENCES authors(id)
