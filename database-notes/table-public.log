@@ -1,0 +1,12 @@
+Table "public.log"
+
+ Column |           Type           |                    Modifiers                     
+--------+--------------------------+--------------------------------------------------
+ path   | text                     | 
+ ip     | inet                     | 
+ method | text                     | 
+ status | text                     | 
+ time   | timestamp with time zone | default now()
+ id     | integer                  | not null default nextval('log_id_seq'::regclass)
+Indexes:
+    "log_pkey" PRIMARY KEY, btree (id)
