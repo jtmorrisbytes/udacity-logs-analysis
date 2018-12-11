@@ -41,10 +41,16 @@
 # count all records:with status entries: select count(status) from public.log 
 # count all records that produced an error : select count(*) from public.log where status != '200 OK'
 
+# ---- begin query ------#
 
-# query in progress
-# select count(status) as totalRequests, (select count(status) from public.log where status != '200 OK') as errors from public.log
+# the beta query
 
+# select total, errors, date, 100.0 * errors/total as percentage from
+# (select count(status) as total,
+# count(case when status !='200 OK' then status end) as errors,
+# time::date as date
+# from public.log
+# group by time::date) order by time::date asc as errorSummary
 
 
 # begin python code
@@ -73,7 +79,11 @@ class public_log:
                         password=password,
                         port=port)
             cursor = connection.cursor()
-            cursor.execute("select path, status, time from public.log where status != '200 OK' order by time asc limit 100")
+            cursor.execute("select date, 100.0 * errors/total as percentage from  \
+                            (select count(status) as total,                                      \
+                                count(case when status !='200 OK' then status end) as errors,    \
+                                to_char(time::date, 'Mon,DD YYYY') as date from public.log group by time::date)          \
+                            as errorSummary order by date asc")
             result = cursor.fetchone()
             while result:
                 if(result):
