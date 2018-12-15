@@ -58,50 +58,58 @@ import os
 import psycopg2
 
 
-class public_log:
-    # the web page path type text, nullable
-    path = ""
-    # the ip address that was logged
-    ip = ""
-    # the response from the server
-    status = ""
-    # the timestamp in "YYYY-MM-DD HH:MM:SS" format
-    timestamp = ""
-    # the primary key, 
-    id = 0
-
-    def do_collection(self, dbname, host, user, password, port):
-        try:
-            connection = psycopg2.connect(
-                        dbname=dbname,
-                        host=host,
-                        user=user,
-                        password=password,
-                        port=port)
-            cursor = connection.cursor()
-            cursor.execute("select date, 100.0 * errors/total as percentage from  \
+error_analysis_query = "select date, 100.0 * errors/total as percentage from  \
                             (select count(status) as total,                                      \
                                 count(case when status !='200 OK' then status end) as errors,    \
                                 to_char(time::date, 'Mon,DD YYYY') as date from public.log group by time::date)          \
-                            as errorSummary order by date asc")
-            result = cursor.fetchone()
-            while result:
-                if(result):
-                    print(result)
-                result = cursor.fetchone()
-            connection.close()
-        except psycopg2.Error as error:
-            print(error)
-        except psycopg2.Warning as warning:
-            print(warning)
+                            as errorSummary where (100.0 * errors/total) > 1.0 order by date asc"
+
+popular_articles_query = "select articles.title, trim(to_char(count(articles.title), '999999')) from log \
+                        full join articles on substring(path, character_length('/articles')+1, character_length(path)) = articles.slug \
+                        where log.path!='/' and log.status !='404 NOT FOUND' \
+                        group by articles.title order by count(articles.title) desc limit 3 "
+
+popular_authors_query = "select authorname, count(authorname) from(select authors.name as authorname, slug from articles \
+full join authors on author = authors.id) as authoredarticles                                                            \
+right join log on substring(log.path, character_length('/articles')+1, character_length(log.path)) = slug                \
+where log.path !='/' and log.status != '404 NOT FOUND' group by authorname order by count(authorname) desc"
+results = []
+
+
+
+def do_collection(dbname, host, user, password, port = ''):
+    try:
+        connection = psycopg2.connect(
+                    dbname = dbname,
+                    host = host,
+                    user = user,
+                    password =password,
+                    port = port)
+        cursor = connection.cursor()
+        cursor.execute(popular_articles_query)
+        results = cursor.fetchall()
+        for result in results:
+            resultString = ' "{}" \u2104 {} views'.format(result)
+            print(result)
+        connection.close()
+            
+        
+    except psycopg2.Error as error:
+        print(error)
+    except psycopg2.Warning as warning:
+        print(warning)
+
+
+
+
 
 if __name__ == "__main__":
     dbname = "news"
-    host = os.environ.get("HOST", "127.0.0.1")
-    port = os.environ.get("PORT")
-    user = os.environ.get("PSQLUSER")
-    password = os.environ.get("PASS")
-    print("connecting to database {} as {} on {} using port {}"
-          .format(dbname, user, host, port))
+    host = "sql-node1.jtmorrisbytes.com"
+    user = "web"
+    password = "web"
+    print("connecting to database {} as {} on {}"
+          .format(dbname, user, host))
 
-    public_log().do_collection(dbname, host, user, password, port)
+    do_collection(dbname, host, user, password)
+    

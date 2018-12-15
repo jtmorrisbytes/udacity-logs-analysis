@@ -5,6 +5,7 @@
 		}
 	],
 	"settings": {
-		"editor.accessibilitySupport": "off"
+		"editor.accessibilitySupport": "off",
+		
 	}
 }
