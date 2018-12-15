@@ -64,10 +64,11 @@ error_analysis_query = "select date, 100.0 * errors/total as percentage from  \
                                 to_char(time::date, 'Mon,DD YYYY') as date from public.log group by time::date)          \
                             as errorSummary where (100.0 * errors/total) > 1.0 order by date asc"
 
-popular_articles_query = "select articles.title, trim(to_char(count(articles.title), '999999')) from log \
-                        full join articles on substring(path, character_length('/articles')+1, character_length(path)) = articles.slug \
-                        where log.path!='/' and log.status !='404 NOT FOUND' \
-                        group by articles.title order by count(articles.title) desc limit 3 "
+popular_articles_query = \
+    "select '\"' || articles.title || '\" ' || U&'\\2014' || ' ' || trim(to_char(count(articles.title), '999999')) || ' views' from log \
+    full join articles on substring(path, character_length('/articles')+1, character_length(path)) = articles.slug \
+    where log.path!='/' and log.status !='404 NOT FOUND' \
+    group by articles.title order by count(articles.title) desc limit 3 "
 
 popular_authors_query = "select authorname, count(authorname) from(select authors.name as authorname, slug from articles \
 full join authors on author = authors.id) as authoredarticles                                                            \
@@ -89,7 +90,7 @@ def do_collection(dbname, host, user, password, port = ''):
         cursor.execute(popular_articles_query)
         results = cursor.fetchall()
         for result in results:
-            resultString = ' "{}" \u2104 {} views'.format(result)
+            #resultString = ' "{}" \u2104 {} views'.format(result)
             print(result)
         connection.close()
             
