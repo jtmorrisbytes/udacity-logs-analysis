@@ -58,7 +58,7 @@ import os
 import psycopg2
 
 
-error_analysis_query = "select date, 100.0 * errors/total as percentage from  \
+error_analysis_query = "select to_char(date, 'J'), 100.0 * errors/total as percentage from  \
                             (select count(status) as total,                                      \
                                 count(case when status !='200 OK' then status end) as errors,    \
                                 to_char(time::date, 'Mon,DD YYYY') as date from public.log group by time::date)          \
@@ -74,9 +74,16 @@ popular_authors_query = "select authorname, count(authorname) from(select author
 full join authors on author = authors.id) as authoredarticles                                                            \
 right join log on substring(log.path, character_length('/articles')+1, character_length(log.path)) = slug                \
 where log.path !='/' and log.status != '404 NOT FOUND' group by authorname order by count(authorname) desc"
-results = []
+analysis_log = []
 
-
+def results_to_array(cursor):
+    query_result = cursor.fetchone()
+    temp_array = []
+    while query_result:
+        temp_array.append(query_result[0])
+        query_result = cursor.fetchone()
+    
+    return temp_array
 
 def do_collection(dbname, host, user, password, port = ''):
     try:
@@ -88,10 +95,10 @@ def do_collection(dbname, host, user, password, port = ''):
                     port = port)
         cursor = connection.cursor()
         cursor.execute(popular_articles_query)
-        results = cursor.fetchall()
-        for result in results:
-            #resultString = ' "{}" \u2104 {} views'.format(result)
-            print(result)
+        
+
+        analysis_log.append(("Popular Articles", results_to_array(cursor)))
+        print(analysis_log)
         connection.close()
             
         
@@ -99,9 +106,6 @@ def do_collection(dbname, host, user, password, port = ''):
         print(error)
     except psycopg2.Warning as warning:
         print(warning)
-
-
-
 
 
 if __name__ == "__main__":
