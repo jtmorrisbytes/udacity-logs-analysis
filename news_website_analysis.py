@@ -71,20 +71,20 @@ def results_to_array(cursor):
 
 def write_log_file(input_array):
     log_file_string = \
-    "\t\tNews Log Analysis:\n\
-    This log is generated as a result of an udacity project\n\
-    see the source code  and more details at\n\
-    https://github.com/jtmorrisbytes/udacity-logs-analysis/\
-    blob/master/README.MD\n\n \
-    This log is a summary of the following components:\n\
-    \tA. Of all articles in the news database,\n\
-    \t   which three are the most popular?\n\
-    \tB. How popular are the article authors in order\n\
-    \t   from most to least popular?,\n\
-    \tC. On which days did visiting the website resulted in the server\n\
-    \t   returning errors on more than 1% of visits?\n\
-    ------------------------BEGIN LOG--------------------------\n\n\
-    "
+     "\t\tNews Log Analysis:\n\
+This log is generated as a result of an udacity project\n\
+see the source code  and more details at\n\
+https://github.com/jtmorrisbytes/udacity-logs-analysis/\
+blob/master/README.MD\n\n \
+This log is a summary of the following components:\n\
+\tA. Of all articles in the news database,\n\
+\t   which three are the most popular?\n\
+\tB. How popular are the article authors in order\n\
+\t   from most to least popular?,\n\
+\tC. On which days did visiting the website resulted in the server\n\
+\t   returning errors on more than 1% of visits?\n\
+------------------------BEGIN LOG--------------------------\n\n\
+"
     for analysis_item_index in range(0, len(input_array)):
         analasis_item = input_array[analysis_item_index]
         title = analasis_item[0]
