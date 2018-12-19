@@ -34,8 +34,9 @@ class Log_Collector:
 
     popular_articles_query = \
         "select '\"' || articles.title || '\" ' || U&'\\2014' || ' '\
-        || trim(to_char(count(articles.title), '999,999')) || ' views' from log\
-        full join articles on substring(path, character_length('/articles')+1, \
+        || trim(to_char(count(articles.title), '999,999')) \
+        || ' views' from log\
+        full join articles on substring(path, character_length('/articles')+1,\
                             character_length(path)) = articles.slug\
         where log.path!='/' and log.status !='404 NOT FOUND'\
         group by articles.title order by count(articles.title) desc limit 3 "
@@ -97,7 +98,7 @@ class Log_Collector:
                     item_string = "\t{}. {}\n".format(item_index+1, item,)
                 else:
                     item_string = "\t*  {}\n".format(item,)
-                self.log_file_string += "\t{}. {}\n".format(item_index+1, item,)
+                self.log_file_string += "\t{}. {}\n".format(item_index+1, item)
             if analysis_item_index < len(self.analysis_log) - 1:
                 self.log_file_string += "\n\n"
         self.log_file_string += \
