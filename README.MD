@@ -2,8 +2,7 @@
 ## By Jordan Morris
 
 
-### This program is a Database log collection program designed to answer the three questions
-
+### This program is a Database log collection program designed to answer three questions from the Udacity Nanodegree project
 
 1. What are the most popular three articles of all time? Which articles have been accessed the most? Present this information as a sorted list with the most popular article at the top.
 
@@ -12,6 +11,7 @@ Example:
     1. "Princess Shellfish Marries Prince Handsome" — 1201 views
     2. "Baltimore Ravens Defeat Rhode Island Shoggoths" — 915 views
     3. "Political Scandal Ends In Political Scandal" — 553 views
+
 2. Who are the most popular article authors of all time? That is, when you sum up all of the articles each author has written, which authors get the most page views? Present this as a sorted list with the most popular author at the top.
 
 Example:
@@ -38,7 +38,7 @@ Example:
 
 * The program itself is really simple. it connects to the specified database with a username and password, then runs the analysis by running the queries, storing the result in memory, and then writing the result to a file.
 
-* The program can be run on any host as long as the user uploads the newsdata.sql file or reproduces the tables inside newsdata.sql
+* The demo ~~can be run on any host as long as the user uploads the newsdata.sql file or reproduces the tables inside newsdata.sql~~ can currently only be run if the user accesses my database or has access to newsdata.sql that contains the demo information
 
 * When the program is not given any options, It will default to hardcoded values used in the demo. When an output path is not specified, the program will drop "news_log_analysis.txt" in the current directory derived from expanding the "." operator
 
@@ -62,7 +62,7 @@ To run the demo, please do the following:
 3. Clone the github repo or download the zip file and extract it.
 4. Open a terminal window pointing to the location of the github project
 5. Install the requirements by running <code>pip3 -r requirements.txt </code>
-5. Run "news_website_analysis.py" or "python3 news_website_analysis.py" without any options.
+5. Run "news_log_analysis.py" or "python3 news_log_analysis.py" without any options.
 6. The program should connect to my database, run the analysis, and drop a text file answering the above questions.
 
 # Problems?

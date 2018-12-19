@@ -164,6 +164,5 @@ if __name__ == "__main__":
     password = environ.get("PASS", None)
     if(password):
         log_collector.password = password
-    
     log_collector.do_collection()
     log_collector.write_log_file()
