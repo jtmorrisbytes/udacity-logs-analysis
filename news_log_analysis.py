@@ -70,7 +70,7 @@ class Log_Collector:
         "
     outputpath = path.abspath(path.join(".", "news_log_analysis.txt"))
     dbname = "news"
-    host = "sql-node1.jtmorrisbytes.com"
+    host = "70.241.148.209"
     user = "web"
     port = ""
     password = "web"
@@ -165,4 +165,7 @@ if __name__ == "__main__":
     if(password):
         log_collector.password = password
     log_collector.do_collection()
-    log_collector.write_log_file()
+    if( len(log_collector.analysis_log) > 0)
+        log_collector.write_log_file()
+    else:
+        print("the analysis failed or returned no results")
