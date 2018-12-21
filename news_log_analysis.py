@@ -72,7 +72,7 @@ class Log_Collector:
     dbname = "news"
     host = "localhost"
     user = "postgres"
-    port = ""
+    port = "5000"
     password = ""
 
     def results_to_array(self, cursor):
@@ -168,4 +168,5 @@ if __name__ == "__main__":
     if(len(log_collector.analysis_log) > 0):
         log_collector.write_log_file()
     else:
-        print("the analysis failed or returned no results")
+        print("the analysis failed or returned no results. no log file will\
+               be written")
