@@ -70,10 +70,10 @@ class Log_Collector:
         "
     outputpath = path.abspath(path.join(".", "news_log_analysis.txt"))
     dbname = "news"
-    host = "70.241.148.209"
-    user = "web"
+    host = "localhost"
+    user = "postgres"
     port = ""
-    password = "web"
+    password = ""
 
     def results_to_array(self, cursor):
         query_result = cursor.fetchone()
@@ -165,7 +165,7 @@ if __name__ == "__main__":
     if(password):
         log_collector.password = password
     log_collector.do_collection()
-    if( len(log_collector.analysis_log) > 0)
+    if(len(log_collector.analysis_log) > 0):
         log_collector.write_log_file()
     else:
         print("the analysis failed or returned no results")
