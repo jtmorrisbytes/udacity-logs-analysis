@@ -70,9 +70,9 @@ class Log_Collector:
         "
     outputpath = path.abspath(path.join(".", "news_log_analysis.txt"))
     dbname = "news"
-    host = "localhost"
-    user = "postgres"
-    port = "5000"
+    host = ""
+    user = ""
+    port = ""
     password = ""
 
     def results_to_array(self, cursor):
@@ -141,13 +141,19 @@ class Log_Collector:
         except psycopg2.Warning as warning:
             print(warning)
 
-
 if __name__ == "__main__":
     # d = dbname
     # u = user
     # h = host
     # p = port
-    args = "-d -u -h -p -o".split()
+    print(
+     "\n\n\t   A message from the developer, Jordan (jtmorrisbytes):\n\
+     \tPer request of the Udacity reviewers, this program has been\n\
+     \tchanged to connect to the postgresql database 'news'\n \
+     \trunning inside a vagrant virtual machine, and must be run\n\
+     \tinside of their vagrant VM. please use command line\n\
+     \targuments if running under a different database.\n\n\
+     \tprogram output begins below:\n\n")
     log_collector = Log_Collector()
     opts, remainder = getopt(sys.argv[1:], "d:u:h:p:o:")
     for arg, opt in opts:

@@ -30,17 +30,13 @@ Example:
 
 #### Minimum Requirements:
     Python 3, psycopg2, os.environ, os.path, getopt.getopt 
-
-
 #### NOTICE: The program does NOT support SSL or ANY other form of encrypted communications. DO NOT expect any information to be transmitted in a secured form
-
-
 
 * The program itself is really simple. it connects to the specified database with a username and password, then runs the analysis by running the queries, storing the result in memory, and then writing the result to a file.
 
-* The demo ~~can be run on any host as long as the user uploads the newsdata.sql file or reproduces the tables inside newsdata.sql~~ can currently only be run if the user accesses my database or has access to newsdata.sql that contains the demo information
+* The demo can only be run inside of Udacity's Vagrant VM if used without command line arguments.
 
-* When the program is not given any options, It will default to hardcoded values used in the demo. When an output path is not specified, the program will drop "news_log_analysis.txt" in the current directory derived from expanding the "." operator
+* When the program is not given any options, It will default to connecting to the database news on the default connection socket using the curently logged in user with no password. When an output path is not specified, the program will drop "news_log_analysis.txt" in the current directory derived from expanding the "." operator
 
 
 ##### The options are configured as followed:
@@ -58,12 +54,16 @@ For security reasons, I have decided not to allow the password to be included as
 To run the demo, please do the following:
 
 1. Ensure that you are connected to the internet
-2. Install python 3 from https://www.python.org/ for your operating system
-3. Clone the github repo or download the zip file and extract it.
-4. Open a terminal window pointing to the location of the github project
-5. Install the requirements by running <code>pip3 -r requirements.txt </code>
-5. Run "news_log_analysis.py" or "python3 news_log_analysis.py" without any options.
-6. The program should connect to my database, run the analysis, and drop a text file answering the above questions.
+2. Install Virtualbox and Vagrant
+3. download  and extract the github repository at https://github.com/udacity/fullstack-nanodegree-vm.git
+4. open a terminal window and go to the vagrant file at (project-root)->vagrant
+5. clone the udacity_logs_analysis project inside the vagrant directory
+6. run the command <code>vagrant up</code> on the directory containing the vagrantfile and wait for the VM to boot
+7. once booted use <code>vagrant ssh </code> to ssh into the virtual machine
+8. Locate the udacity_logs_analysis folder inside the /vagrant directory
+9. Install the requirements by <code>pip3 install -r psycopg2 </code>
+10. Run "news_log_analysis.py" or "python3 news_log_analysis.py" without any options.
+11. The program should connect to the vagrant vm's database, run the analysis, and drop a text file int the current working directory containing the results.
 
 # Problems?
 Please submit a github issue or contact me at <a href="mailto:jthecybertinkerer@gmail.com?subject=news%20log%20analysis%20issue">jthecybertinkerer@gmail.com</a> with a report of what went wrong, what you expected to happen, and what steps you did to reproduce the problem. I will do my best to get back to you as soon as possible.

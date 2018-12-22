@@ -6,6 +6,7 @@
 	],
 	"settings": {
 		"editor.accessibilitySupport": "off",
+		"python.linting.pep8Enabled": true
 		
 	}
 }
