@@ -55,15 +55,20 @@ To run the demo, please do the following:
 
 1. Ensure that you are connected to the internet
 2. Install Virtualbox and Vagrant
-3. download  and extract the github repository at https://github.com/udacity/fullstack-nanodegree-vm.git
-4. open a terminal window and go to the vagrant file at (project-root)->vagrant
-5. clone the udacity_logs_analysis project inside the vagrant directory
-6. run the command <code>vagrant up</code> on the directory containing the vagrantfile and wait for the VM to boot
-7. once booted use <code>vagrant ssh </code> to ssh into the virtual machine
+3. Download  and extract the github repository at https://github.com/udacity/fullstack-nanodegree-vm.git
+4. Open a terminal window and go to the vagrant file at (project-root)->vagrant
+5. Clone the udacity_logs_analysis project inside the vagrant directory
+6. Run the command <code>vagrant up</code> on the directory containing the vagrantfile and wait for the VM to boot
+7. Once booted use <code>vagrant ssh </code> to ssh into the virtual machine
 8. Locate the udacity_logs_analysis folder inside the /vagrant directory
-9. Install the requirements by <code>pip3 install -r psycopg2 </code>
+9. Install the requirements by <code>sudo pip3 install -r psycopg2 </code>
+
 10. Run "news_log_analysis.py" or "python3 news_log_analysis.py" without any options.
 11. The program should connect to the vagrant vm's database, run the analysis, and drop a text file int the current working directory containing the results.
+
+# FAQ
+* If the database connection times out, make sure you reprovision the VM with <code>vagrant provision</code> using the terminal window you used to start the VM and try again
+* If you get the error <code>Import Error, no such library "psycopg2"</code> make sure that you are connected to the internet and ran the command in step 9.
 
 # Problems?
 Please submit a github issue or contact me at <a href="mailto:jthecybertinkerer@gmail.com?subject=news%20log%20analysis%20issue">jthecybertinkerer@gmail.com</a> with a report of what went wrong, what you expected to happen, and what steps you did to reproduce the problem. I will do my best to get back to you as soon as possible.
