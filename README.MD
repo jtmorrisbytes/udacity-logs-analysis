@@ -61,7 +61,7 @@ To run the demo, please do the following:
 6. Run the command <code>vagrant up</code> on the directory containing the vagrantfile and wait for the VM to boot
 7. Once booted use <code>vagrant ssh </code> to ssh into the virtual machine
 8. Locate the udacity_logs_analysis folder inside the /vagrant directory
-9. Install the requirements by <code>sudo pip3 install -r psycopg2 </code>
+9. Install the requirements by <code>sudo pip3 install psycopg2 </code>
 
 10. Run "news_log_analysis.py" or "python3 news_log_analysis.py" without any options.
 11. The program should connect to the vagrant vm's database, run the analysis, and drop a text file int the current working directory containing the results.
